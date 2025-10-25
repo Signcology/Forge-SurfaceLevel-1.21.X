@@ -1,0 +1,7 @@
+{
+    "variants": {
+      "axis=y": { "model": "surfacelevel:block/hardslate"},
+      "axis=z": { "model": "surfacelevel:block/hardslate", "x": 90 },
+      "axis=x": { "model": "surfacelevel:block/hardslate", "x": 90, "y": 90 }
+    }
+}
