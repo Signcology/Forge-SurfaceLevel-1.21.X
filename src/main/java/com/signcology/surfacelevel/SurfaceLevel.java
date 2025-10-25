@@ -40,16 +40,6 @@ public class SurfaceLevel
 
     //----------------------------------------------------------------------------------------------------//
     //----------------------------------------------------------------------------------------------------//
-    // Creates a creative tab with the id "surfacelevel:example_tab" for the example item, that is placed after the combat tab
-    public static final RegistryObject<CreativeModeTab> SURFACELEVEL_TAB = CREATIVE_MODE_TABS.register("surfacelevel_tab", () -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .title(Component.translatable("creativetab.surfacelevel.all"))
-            .displayItems((parameters, output) -> {
-
-            })
-            .build());
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
     public SurfaceLevel()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
