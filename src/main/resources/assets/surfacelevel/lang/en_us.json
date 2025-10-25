@@ -2,5 +2,7 @@
   "creativetab.surfacelevel.all": "Surface Level",
   "block.surfacelevel.hardstone": "Hardstone",
   "block.surfacelevel.hardslate": "Hardslate",
-  "block.surfacelevel.hardrack": "Hardrack"
+  "block.surfacelevel.hardrack": "Hardrack",
+
+  "item.surfacelevel.testytimmy": "Testy Timmy"
 }

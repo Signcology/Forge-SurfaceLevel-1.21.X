@@ -1,6 +1,8 @@
 package com.signcology.surfacelevel;
 
 import com.mojang.logging.LogUtils;
+import com.signcology.surfacelevel.block.ModBlocks;
+import com.signcology.surfacelevel.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -40,61 +42,19 @@ public class SurfaceLevel
     public static final String MODID = "surfacelevel";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "surfacelevel" namespace
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "surfacelevel" namespace
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "surfacelevel" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    //----------------------------------------------------------------------------------------------------//
-    // Creates a new Block with the id "surfacelevel:example_block", combining the namespace and path
-    //public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
-    //        () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
-    public static final RegistryObject<Block> HARDSTONE = BLOCKS.register("hardstone",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(100f)
-                    .sound(SoundType.STONE)));
-    public static final RegistryObject<Block> HARDSLATE = BLOCKS.register("hardslate",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DEEPSLATE)
-                    .strength(100f)
-                    .sound(SoundType.DEEPSLATE)));
-    public static final RegistryObject<Block> HARDRACK = BLOCKS.register("hardrack",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.NETHER)
-                    .strength(100f)
-                    .sound(SoundType.NETHERRACK)));
-
-    //----------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------------------------------------------//
-    // Creates a new BlockItem with the id "surfacelevel:example_block", combining the namespace and path
-    //public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
-    //        () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<Item> HARDSTONE_ITEM = ITEMS.register("hardstone",
-            () -> new BlockItem(HARDSTONE.get(), new Item.Properties()));
-    public static final RegistryObject<Item> HARDSLATE_ITEM = ITEMS.register("hardslate",
-            () -> new BlockItem(HARDSLATE.get(), new Item.Properties()));
-    public static final RegistryObject<Item> HARDRACK_ITEM = ITEMS.register("hardrack",
-            () -> new BlockItem(HARDRACK.get(), new Item.Properties()));
-
-    // Creates a new food item with the id "surfacelevel:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
-            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(2f).build())));
     //----------------------------------------------------------------------------------------------------//
     //----------------------------------------------------------------------------------------------------//
     // Creates a creative tab with the id "surfacelevel:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> SURFACELEVEL_TAB = CREATIVE_MODE_TABS.register("surfacelevel_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .title(Component.translatable("creativetab.surfacelevel.all"))
-            .icon(() -> HARDSTONE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                //output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-                output.accept(HARDSTONE_ITEM.get());
-                output.accept(HARDSLATE_ITEM.get());
-                output.accept(HARDRACK_ITEM.get());
-            }).build());
+
+            })
+            .build());
     //----------------------------------------------------------------------------------------------------//
     //----------------------------------------------------------------------------------------------------//
     public SurfaceLevel()
@@ -104,10 +64,9 @@ public class SurfaceLevel
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
-        BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
-        ITEMS.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -139,8 +98,15 @@ public class SurfaceLevel
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        //if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            //event.accept(EXAMPLE_BLOCK_ITEM);
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(ModItems.TESTYTIMMY);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
+            event.accept(ModBlocks.HARDSTONE);
+            event.accept(ModBlocks.HARDSLATE);
+            event.accept(ModBlocks.HARDRACK);
+        }
     }
     //----------------------------------------------------------------------------------------------------//
     // You can use SubscribeEvent and let the Event Bus discover methods to call
