@@ -2,7 +2,6 @@ package com.signcology.surfacelevel.item;
 
 import com.signcology.surfacelevel.SurfaceLevel;
 import com.signcology.surfacelevel.item.custom.ChiselItem;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
