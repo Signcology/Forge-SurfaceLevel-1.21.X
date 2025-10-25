@@ -2,6 +2,7 @@ package com.signcology.surfacelevel;
 
 import com.mojang.logging.LogUtils;
 import com.signcology.surfacelevel.block.ModBlocks;
+import com.signcology.surfacelevel.item.ModCreativeModeTabs;
 import com.signcology.surfacelevel.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -60,22 +61,18 @@ public class SurfaceLevel
     public SurfaceLevel()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+
+        ModCreativeModeTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
-        // Register the Deferred Register to the mod event bus so tabs get registered
-        CREATIVE_MODE_TABS.register(modEventBus);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -98,9 +95,9 @@ public class SurfaceLevel
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(ModItems.TESTYTIMMY);
-        }
+        //if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            //event.accept(ModItems.TESTYTIMMY);
+        //}
 
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
             event.accept(ModBlocks.HARDSTONE);
