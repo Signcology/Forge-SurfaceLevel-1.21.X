@@ -49,8 +49,8 @@ public class SurfaceLevel
 
     //----------------------------------------------------------------------------------------------------//
     // Creates a new Block with the id "surfacelevel:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
-            () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    //public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
+    //        () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
     public static final RegistryObject<Block> HARDSTONE = BLOCKS.register("hardstone",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
@@ -58,9 +58,14 @@ public class SurfaceLevel
                     .sound(SoundType.STONE)));
     public static final RegistryObject<Block> HARDSLATE = BLOCKS.register("hardslate",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
+                    .mapColor(MapColor.DEEPSLATE)
                     .strength(100f)
-                    .sound(SoundType.STONE)));
+                    .sound(SoundType.DEEPSLATE)));
+    public static final RegistryObject<Block> HARDRACK = BLOCKS.register("hardrack",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.NETHER)
+                    .strength(100f)
+                    .sound(SoundType.NETHERRACK)));
 
     //----------------------------------------------------------------------------------------------------//
     //----------------------------------------------------------------------------------------------------//
@@ -71,6 +76,8 @@ public class SurfaceLevel
             () -> new BlockItem(HARDSTONE.get(), new Item.Properties()));
     public static final RegistryObject<Item> HARDSLATE_ITEM = ITEMS.register("hardslate",
             () -> new BlockItem(HARDSLATE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> HARDRACK_ITEM = ITEMS.register("hardrack",
+            () -> new BlockItem(HARDRACK.get(), new Item.Properties()));
 
     // Creates a new food item with the id "surfacelevel:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
@@ -86,6 +93,7 @@ public class SurfaceLevel
                 //output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(HARDSTONE_ITEM.get());
                 output.accept(HARDSLATE_ITEM.get());
+                output.accept(HARDRACK_ITEM.get());
             }).build());
     //----------------------------------------------------------------------------------------------------//
     //----------------------------------------------------------------------------------------------------//
