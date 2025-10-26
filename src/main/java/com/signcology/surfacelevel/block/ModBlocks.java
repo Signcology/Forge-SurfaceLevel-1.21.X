@@ -24,17 +24,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> HARDSTONE = registerBlock("hardstone",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
-                    .strength(100f)
+                    .strength(60f, 0.0f)
                     .sound(SoundType.STONE)));
     public static final RegistryObject<Block> HARDSLATE = registerBlock("hardslate",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DEEPSLATE)
-                    .strength(100f)
+                    .strength(60f, 0.0f)
                     .sound(SoundType.DEEPSLATE)));
     public static final RegistryObject<Block> HARDRACK = registerBlock("hardrack",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.NETHER)
-                    .strength(100f)
+                    .strength(60f, 0.0f)
                     .sound(SoundType.NETHERRACK)));
 
     //----------------------------------------------------------------------------------------------------//
