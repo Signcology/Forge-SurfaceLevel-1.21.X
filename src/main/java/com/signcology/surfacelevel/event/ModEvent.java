@@ -5,11 +5,7 @@ import com.signcology.surfacelevel.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
@@ -50,7 +46,6 @@ public class ModEvent {
     @SubscribeEvent
     public static void onHardBlockCreate(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().level();
-        BlockState block = event.getLevel().getBlockState(event.getPos());
         level.playSound(event.getPlayer(), event.getPos(), SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundSource.BLOCKS, 1f, 1f);
 
         for(int x = -updateDistance; x <= updateDistance; x++) {

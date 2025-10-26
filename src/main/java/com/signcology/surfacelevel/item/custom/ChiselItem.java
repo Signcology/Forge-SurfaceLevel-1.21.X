@@ -42,7 +42,10 @@ public class ChiselItem extends Item {
                 level.setBlockAndUpdate(pContext.getClickedPos(), CHISEL_MAP.get(clickedBlock).defaultBlockState());
 
                 pContext.getItemInHand().hurtAndBreak(1, ((ServerLevel) level), ((ServerPlayer) pContext.getPlayer()),
-                        item -> pContext.getPlayer().onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+                        item -> {
+                            assert pContext.getPlayer() != null;
+                            pContext.getPlayer().onEquippedItemBroken(item, EquipmentSlot.MAINHAND);
+                        });
                 level.playSound(null, pContext.getClickedPos(), SoundEvents.AMETHYST_BLOCK_BREAK, SoundSource.BLOCKS);
             }
         }
