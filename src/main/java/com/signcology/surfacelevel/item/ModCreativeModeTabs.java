@@ -21,6 +21,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.HARDSTONE.get());
                         output.accept(ModBlocks.HARDSLATE.get());
                         output.accept(ModBlocks.HARDRACK.get());
+                        output.accept(ModItems.CHISEL.get());
                     })
                     .build());
 
