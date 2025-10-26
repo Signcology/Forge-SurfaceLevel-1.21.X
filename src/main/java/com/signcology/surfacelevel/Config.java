@@ -19,17 +19,21 @@ public class Config
 {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    private static final ForgeConfigSpec.BooleanValue ALLOW_CHISEL = BUILDER
+            .comment("Is the chisel allowed to be used")
+            .define("allowChisel", true);
 
-    private static final ForgeConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue AIR_SEARCH_DISTANCE = BUILDER
+            .comment("How far the mod will look for transparent block")
+            .defineInRange("airSearchDistance", 1, 1, 255);
 
-    public static final ForgeConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    private static final ForgeConfigSpec.IntValue UPDATE_DISTANCE = BUILDER
+            .comment("How far the mod check and update blocks")
+            .defineInRange("updateDistance", 2, 1, 255);
+
+    private static final ForgeConfigSpec.IntValue UPDATE_EXPLOSION_DISTANCE = BUILDER
+            .comment("How far the mod check and update blocks from a explosion")
+            .defineInRange("updateExplosionDistance", 5, 1, 255);
 
     // a list of strings that are treated as resource locations for items
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
@@ -38,9 +42,10 @@ public class Config
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
-    public static boolean logDirtBlock;
-    public static int magicNumber;
-    public static String magicNumberIntroduction;
+    public static boolean allowChisel;
+    public static int airSearchDistance;
+    public static int updateDistance;
+    public static int updateExplosionDistance;
     public static Set<Item> items;
 
     private static boolean validateItemName(final Object obj)
@@ -51,13 +56,17 @@ public class Config
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event)
     {
-        logDirtBlock = LOG_DIRT_BLOCK.get();
-        magicNumber = MAGIC_NUMBER.get();
-        magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
+        allowChisel = ALLOW_CHISEL.get();
+        airSearchDistance = AIR_SEARCH_DISTANCE.get();
+        updateDistance = UPDATE_DISTANCE.get();
+        updateExplosionDistance = UPDATE_EXPLOSION_DISTANCE.get();
 
         // convert the list of strings into a set of items
+        /*
         items = ITEM_STRINGS.get().stream()
                 .map(itemName -> ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(itemName)))
                 .collect(Collectors.toSet());
+
+         */
     }
 }

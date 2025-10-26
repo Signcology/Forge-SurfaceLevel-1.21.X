@@ -1,5 +1,6 @@
 package com.signcology.surfacelevel.event;
 
+import com.signcology.surfacelevel.Config;
 import com.signcology.surfacelevel.SurfaceLevel;
 import com.signcology.surfacelevel.block.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -18,14 +19,11 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = SurfaceLevel.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvent {
-    static int updateDistance = 3;
-    static int updateDistanceExplosives = 5;
-    static int coverDistance = 1;
 
     private static boolean canBeSeen(Level level, BlockPos pPos) {
-        for(int x = -coverDistance; x <= coverDistance; x++) {
-            for(int y = -coverDistance; y <= coverDistance; y++) {
-                for(int z = -coverDistance; z <= coverDistance; z++) {
+        for(int x = -Config.airSearchDistance; x <= Config.airSearchDistance; x++) {
+            for(int y = -Config.airSearchDistance; y <= Config.airSearchDistance; y++) {
+                for(int z = -Config.airSearchDistance; z <= Config.airSearchDistance; z++) {
                     BlockPos pos = new BlockPos(pPos.getX() + x, pPos.getY() + y, pPos.getZ() + z);
                     if (!level.getBlockState(pos).canOcclude()) {
                         return true;
@@ -69,9 +67,9 @@ public class ModEvent {
     public static void onHardBlockCreate(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().level();
 
-        for(int x = -updateDistance; x <= updateDistance; x++) {
-            for(int y = -updateDistance; y <= updateDistance; y++) {
-                for(int z = -updateDistance; z <= updateDistance; z++) {
+        for(int x = -Config.updateDistance; x <= Config.updateDistance; x++) {
+            for(int y = -Config.updateDistance; y <= Config.updateDistance; y++) {
+                for(int z = -Config.updateDistance; z <= Config.updateDistance; z++) {
                     BlockPos pos = new BlockPos(event.getPos().getX() + x, event.getPos().getY() + y, event.getPos().getZ() + z);
                     generateHardBlock(level, level.getBlockState(pos), pos);
                     //System.out.println("Attempt Generation");
@@ -85,9 +83,9 @@ public class ModEvent {
         Level level = event.getLevel();
         Explosion explosion = event.getExplosion();
 
-        for(int x = -updateDistanceExplosives; x <= updateDistanceExplosives; x++) {
-            for(int y = -updateDistanceExplosives; y <= updateDistanceExplosives; y++) {
-                for(int z = -updateDistanceExplosives; z <= updateDistanceExplosives; z++) {
+        for(int x = -Config.updateExplosionDistance; x <= Config.updateExplosionDistance; x++) {
+            for(int y = -Config.updateExplosionDistance; y <= Config.updateExplosionDistance; y++) {
+                for(int z = -Config.updateExplosionDistance; z <= Config.updateExplosionDistance; z++) {
                     BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
                     generateHardBlockExplosion(level, level.getBlockState(pos), pos);
                 }
@@ -99,9 +97,9 @@ public class ModEvent {
         Level level = event.getLevel();
         Explosion explosion = event.getExplosion();
 
-        for(int x = -updateDistanceExplosives; x <= updateDistanceExplosives; x++) {
-            for(int y = -updateDistanceExplosives; y <= updateDistanceExplosives; y++) {
-                for(int z = -updateDistanceExplosives; z <= updateDistanceExplosives; z++) {
+        for(int x = -Config.updateExplosionDistance; x <= Config.updateExplosionDistance; x++) {
+            for(int y = -Config.updateExplosionDistance; y <= Config.updateExplosionDistance; y++) {
+                for(int z = -Config.updateExplosionDistance; z <= Config.updateExplosionDistance; z++) {
                     BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
                     degenerateHardBlock(level, level.getBlockState(pos), pos);
                 }
