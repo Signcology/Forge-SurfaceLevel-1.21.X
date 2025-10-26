@@ -1,5 +1,6 @@
 package com.signcology.surfacelevel.item.custom;
 
+import com.signcology.surfacelevel.Config;
 import com.signcology.surfacelevel.block.ModBlocks;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -37,7 +38,7 @@ public class ChiselItem extends Item {
         Level level = pContext.getLevel();
         Block clickedBlock = level.getBlockState(pContext.getClickedPos()).getBlock();
 
-        if(CHISEL_MAP.containsKey(clickedBlock)) {
+        if(CHISEL_MAP.containsKey(clickedBlock) && Config.allowChisel) {
             if(!level.isClientSide()) {
                 level.setBlockAndUpdate(pContext.getClickedPos(), CHISEL_MAP.get(clickedBlock).defaultBlockState());
 
