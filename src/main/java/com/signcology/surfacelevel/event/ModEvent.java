@@ -5,10 +5,12 @@ import com.signcology.surfacelevel.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -17,6 +19,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = SurfaceLevel.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvent {
     static int updateDistance = 3;
+    static int updateDistanceExplosives = 5;
     static int coverDistance = 1;
 
     private static boolean canBeSeen(Level level, BlockPos pPos) {
@@ -42,11 +45,29 @@ public class ModEvent {
             level.setBlockAndUpdate(pos, ModBlocks.HARDRACK.get().defaultBlockState());
         }
     }
+    private static void generateHardBlockExplosion(Level level,BlockState block, BlockPos pos) {
+        if(block.getBlock() == Blocks.STONE) {
+            level.setBlockAndUpdate(pos, ModBlocks.HARDSTONE.get().defaultBlockState());
+        } else if(block.getBlock() == Blocks.DEEPSLATE) {
+            level.setBlockAndUpdate(pos, ModBlocks.HARDSLATE.get().defaultBlockState());
+        } else if(block.getBlock() == Blocks.NETHERRACK) {
+            level.setBlockAndUpdate(pos, ModBlocks.HARDRACK.get().defaultBlockState());
+        }
+    }
+
+    private static void degenerateHardBlock(Level level,BlockState block, BlockPos pos) {
+        if(block.getBlock() == ModBlocks.HARDSTONE.get()) {
+            level.setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
+        } else if(block.getBlock() == ModBlocks.HARDSLATE.get()) {
+            level.setBlockAndUpdate(pos, Blocks.DEEPSLATE.defaultBlockState());
+        } else if(block.getBlock() == ModBlocks.HARDRACK.get()) {
+            level.setBlockAndUpdate(pos, Blocks.NETHERRACK.defaultBlockState());
+        }
+    }
 
     @SubscribeEvent
     public static void onHardBlockCreate(BlockEvent.BreakEvent event) {
         Level level = event.getPlayer().level();
-        level.playSound(event.getPlayer(), event.getPos(), SoundEvents.BAMBOO_WOOD_DOOR_CLOSE, SoundSource.BLOCKS, 1f, 1f);
 
         for(int x = -updateDistance; x <= updateDistance; x++) {
             for(int y = -updateDistance; y <= updateDistance; y++) {
@@ -57,9 +78,36 @@ public class ModEvent {
                 }
             }
         }
-
     }
 
+    @SubscribeEvent
+    public static void onExploisonHardBlockCreate(ExplosionEvent.Start event) {
+        Level level = event.getLevel();
+        Explosion explosion = event.getExplosion();
+
+        for(int x = -updateDistanceExplosives; x <= updateDistanceExplosives; x++) {
+            for(int y = -updateDistanceExplosives; y <= updateDistanceExplosives; y++) {
+                for(int z = -updateDistanceExplosives; z <= updateDistanceExplosives; z++) {
+                    BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
+                    generateHardBlockExplosion(level, level.getBlockState(pos), pos);
+                }
+            }
+        }
+    }
+    @SubscribeEvent
+    public static void onExploisonHardBlockCreate(ExplosionEvent.Detonate event) {
+        Level level = event.getLevel();
+        Explosion explosion = event.getExplosion();
+
+        for(int x = -updateDistanceExplosives; x <= updateDistanceExplosives; x++) {
+            for(int y = -updateDistanceExplosives; y <= updateDistanceExplosives; y++) {
+                for(int z = -updateDistanceExplosives; z <= updateDistanceExplosives; z++) {
+                    BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
+                    degenerateHardBlock(level, level.getBlockState(pos), pos);
+                }
+            }
+        }
+    }
 
 
 }
