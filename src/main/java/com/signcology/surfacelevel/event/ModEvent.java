@@ -3,9 +3,11 @@ package com.signcology.surfacelevel.event;
 import com.signcology.surfacelevel.Config;
 import com.signcology.surfacelevel.SurfaceLevel;
 import com.signcology.surfacelevel.block.ModBlocks;
+import com.signcology.surfacelevel.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +27,8 @@ public class ModEvent {
             for(int y = -Config.airSearchDistance; y <= Config.airSearchDistance; y++) {
                 for(int z = -Config.airSearchDistance; z <= Config.airSearchDistance; z++) {
                     BlockPos pos = new BlockPos(pPos.getX() + x, pPos.getY() + y, pPos.getZ() + z);
-                    if (!level.getBlockState(pos).canOcclude()) {
+                    if (!level.getBlockState(pos).is(ModTags.Blocks.STONE_BLOCK)) {
+                        //!level.getBlockState(pos).canOcclude()
                         return true;
                     }
                 }
