@@ -9,11 +9,18 @@
       },
       {
         "model": "surfacelevel:block/hardstone",
-        "y": 180
+        "x": 180
       },
       {
         "model": "surfacelevel:block/hardstone_mirrored",
-        "y": 180
+        "x": 180
+      },
+      {
+        "model": "surfacelevel:block/hardstone_0002"
+      },
+      {
+        "model": "surfacelevel:block/hardstone_mirrored_0002",
+        "x": 180
       }
     ]
   }

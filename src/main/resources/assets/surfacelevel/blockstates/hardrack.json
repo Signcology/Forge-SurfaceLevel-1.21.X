@@ -72,6 +72,78 @@
         "model": "surfacelevel:block/hardrack",
         "x": 270,
         "y": 270
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002"
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 90
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 180
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 270
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "y": 90
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 270,
+        "y": 90
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "y": 180
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 270,
+        "y": 180
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "y": 270
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "surfacelevel:block/hardrack_0002",
+        "x": 270,
+        "y": 270
       }
     ]
   }

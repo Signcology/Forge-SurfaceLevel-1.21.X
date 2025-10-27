@@ -36,6 +36,21 @@ public class ModBlocks {
                     .mapColor(MapColor.NETHER)
                     .strength(60f, 0.0f)
                     .sound(SoundType.NETHERRACK)));
+    public static final RegistryObject<Block> TEMPSTONE = registerBlock("tempstone",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(60f, 0.0f)
+                    .sound(SoundType.STONE)));
+    public static final RegistryObject<Block> TEMPSLATE = registerBlock("tempslate",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(60f, 0.0f)
+                    .sound(SoundType.STONE)));
+    public static final RegistryObject<Block> TEMPRACK = registerBlock("temprack",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(60f, 0.0f)
+                    .sound(SoundType.STONE)));
 
     //----------------------------------------------------------------------------------------------------//
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

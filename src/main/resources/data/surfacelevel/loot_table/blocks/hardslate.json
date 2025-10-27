@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:deepslate"
+          "name": "minecraft:cobbled_deepslate"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "minecraft:blocks/deepslate"
+  "random_sequence": "minecraft:blocks/cobbled_deepslate"
 }

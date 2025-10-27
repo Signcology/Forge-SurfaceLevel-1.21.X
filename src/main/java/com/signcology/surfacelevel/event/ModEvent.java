@@ -41,22 +41,22 @@ public class ModEvent {
             level.setBlockAndUpdate(pos, ModBlocks.HARDRACK.get().defaultBlockState());
         }
     }
-    private static void generateHardBlockExplosion(Level level,BlockState block, BlockPos pos) {
+    private static void generateTempBlock(Level level,BlockState block, BlockPos pos) {
         if(block.getBlock() == Blocks.STONE) {
-            level.setBlockAndUpdate(pos, ModBlocks.HARDSTONE.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, ModBlocks.TEMPSTONE.get().defaultBlockState());
         } else if(block.getBlock() == Blocks.DEEPSLATE) {
-            level.setBlockAndUpdate(pos, ModBlocks.HARDSLATE.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, ModBlocks.TEMPSLATE.get().defaultBlockState());
         } else if(block.getBlock() == Blocks.NETHERRACK) {
-            level.setBlockAndUpdate(pos, ModBlocks.HARDRACK.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, ModBlocks.TEMPRACK.get().defaultBlockState());
         }
     }
 
-    private static void degenerateHardBlock(Level level,BlockState block, BlockPos pos) {
-        if(block.getBlock() == ModBlocks.HARDSTONE.get()) {
+    private static void degenerateTempBlock(Level level,BlockState block, BlockPos pos) {
+        if(block.getBlock() == ModBlocks.TEMPSTONE.get()) {
             level.setBlockAndUpdate(pos, Blocks.STONE.defaultBlockState());
-        } else if(block.getBlock() == ModBlocks.HARDSLATE.get()) {
+        } else if(block.getBlock() == ModBlocks.TEMPSLATE.get()) {
             level.setBlockAndUpdate(pos, Blocks.DEEPSLATE.defaultBlockState());
-        } else if(block.getBlock() == ModBlocks.HARDRACK.get()) {
+        } else if(block.getBlock() == ModBlocks.TEMPRACK.get()) {
             level.setBlockAndUpdate(pos, Blocks.NETHERRACK.defaultBlockState());
         }
     }
@@ -85,7 +85,7 @@ public class ModEvent {
             for(int y = -Config.updateExplosionDistance; y <= Config.updateExplosionDistance; y++) {
                 for(int z = -Config.updateExplosionDistance; z <= Config.updateExplosionDistance; z++) {
                     BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
-                    generateHardBlockExplosion(level, level.getBlockState(pos), pos);
+                    generateTempBlock(level, level.getBlockState(pos), pos);
                 }
             }
         }
@@ -99,7 +99,7 @@ public class ModEvent {
             for(int y = -Config.updateExplosionDistance; y <= Config.updateExplosionDistance; y++) {
                 for(int z = -Config.updateExplosionDistance; z <= Config.updateExplosionDistance; z++) {
                     BlockPos pos = new BlockPos((int) explosion.center().x + x, (int) explosion.center().y + y, (int) explosion.center().z + z);
-                    degenerateHardBlock(level, level.getBlockState(pos), pos);
+                    degenerateTempBlock(level, level.getBlockState(pos), pos);
                 }
             }
         }
